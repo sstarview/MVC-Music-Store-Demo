@@ -3,29 +3,36 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using MvcMusicStore.Models;
 
 namespace MvcMusicStore.Controllers
 {
   public class StoreController : Controller
   {
     // GET: Store
-    public string Index()
+    public ActionResult Index()
     {
-      return "Hello from Store.Index()";//View();
+      var genre = new List<Genre>
+      {
+        new Genre {Name ="Disco"},
+        new Genre {Name="Jazz"},
+        new Genre{Name = "Rock"}
+      };
+      return View(genre);
     }
 
     //Get: Store/Browse?genre=Disco
-    public string Browse(string genre)
+    public ActionResult Browse(string genre)
     {
-      string message = HttpUtility.HtmlEncode("Store.Browse, Genre = " + genre);
-      return message;
+      var genreModel = new Genre { Name = genre };
+      return View(genreModel);
     }
 
     //Get: Store/Details/5
-    public string Details(int id)
+    public ActionResult Details(int id)
     {
-      string message = "Store.Details, Id = " + id;
-      return message;
+      var album = new Album { Title = "Album " + id };
+      return View(album);
     }
   }
 }
